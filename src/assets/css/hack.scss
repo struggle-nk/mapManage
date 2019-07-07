@@ -1,0 +1,9 @@
+/*兼容处理*/
+
+@-moz-document url-prefix() {
+  .el-main {
+    .index{
+      margin-bottom: 80px;
+    }
+  }
+}

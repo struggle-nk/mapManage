@@ -1,0 +1,13 @@
+@charset "utf-8";
+@import "../../assets/css/mixin";
+
+.el-menu-item-group__title{
+  display: none;
+}
+
+.el-submenu .el-menu{
+  overflow: hidden;
+}
+.box .el-form-item__label{
+  color: white;
+}
