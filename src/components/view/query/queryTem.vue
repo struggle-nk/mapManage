@@ -169,7 +169,7 @@ import vCharts from 'vue-echarts';
         this.formInline.enddate = this.value1[1];
         this.$ajax({
           // 方式
-          method: 'post',
+          method: 'get',
           // 路径
           url: this.$apiUrl.picmapinfo,
           // 参数

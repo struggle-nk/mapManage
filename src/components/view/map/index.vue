@@ -96,45 +96,39 @@ import _ from 'lodash'
         infoForm:{
           duty: [
             {
-              kv: '110kV',
-              linename: '12',
-              tower: '12',
-              measuredate: '20180304',
-              measuretime: '1320',
-              staff: '12',
-              humidity: 'dev11',
-              deviceinfo: 23.2,
-              temperature: 96.5,
-              rtempa: 13.2,
-              rtempb: 13.3,
-              rtempc: 13.4,
-              current: 25,
-              status: 'OK',
-              picmap: [
-                'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-                'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
-              ]
+              kv: '',
+              linename: '',
+              tower: '',
+              measuredate: '',
+              measuretime: '',
+              staff: '',
+              humidity: '',
+              deviceinfo: '',
+              temperature: '',
+              rtempa: '',
+              rtempb: '',
+              rtempc: '',
+              current: '',
+              status: '',
+              picmap: []
             },
             {
-              kv: '110kV',
-              linename: '12',
-              tower: '12',
-              measuredate: '20180304',
-              measuretime: '1320',
-              staff: '12',
-              humidity: 'dev11',
-              deviceinfo: 23.2,
-              temperature: 96.5,
-              rtempa: 13.2,
-              rtempb: 13.3,
-              rtempc: 13.4,
-              current: 25,
-              status: 'OK',
-              picmap: [
-                'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-                'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
-              ]
-            },
+              kv: '',
+              linename: '',
+              tower: '',
+              measuredate: '',
+              measuretime: '',
+              staff: '',
+              humidity: '',
+              deviceinfo: '',
+              temperature: '',
+              rtempa: '',
+              rtempb: '',
+              rtempc: '',
+              current: '',
+              status: '',
+              picmap: []
+            }
           ]
         },
         form: [],

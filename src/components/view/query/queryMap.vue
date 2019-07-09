@@ -86,8 +86,8 @@
       getPicMap(){
         let _this = this;
         this.$ajax({
-          method: 'post',
-          url: this.$apiUrl.map,
+          method: 'get',
+          url: this.$apiUrl.picmap,
           params: _this.formInline
         })
           .then(function (response) {
