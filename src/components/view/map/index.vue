@@ -163,17 +163,18 @@ import _ from 'lodash'
       * 查询图谱表格接口  map
       * */
       getMap(){
+        let _this = this;
         this.$ajax({
           method: 'post',
           url: this.$apiUrl.map,
-          params: this.$params.stringify(this.formInline)
+          params: _this.formInline
         })
           .then(function (response) {
             if (response.data.code === '0'){
-              this.form = response.data.data;
-              this.infoForm.duty = _.cloneDeep(this.form);
+              _this.form = response.data.data;
+              _this.infoForm.duty = _.cloneDeep(_this.form);
             } else {
-              this.$message.error(response.data.message);
+              _this.$message.error(response.data.message);
             }
           })
         },
@@ -188,18 +189,19 @@ import _ from 'lodash'
       * 图谱归档接口  picmap
       * */
       putPicMap(){
+        let _this = this;
         if (_.isEqual(this.infoForm.duty, this.form)){
           return;
         }
         this.$ajax({
           method: 'post',
           url: this.$apiUrl.picmap,
-          params: this.$params.stringify(this.infoForm.duty)
+          params:_this.infoForm.duty
         })
           .then(function (response) {
             if (response.data.code === '0') {
             } else {
-              this.$message.error(response.data.message);
+              _this.$message.error(response.data.message);
             }
 
           })

@@ -164,6 +164,7 @@ import vCharts from 'vue-echarts';
       },
       // 查询温度曲线接口  picmapinfo
       getPicMapInfo(){
+        let _this = this
         this.formInline.startdate = this.value1[0];
         this.formInline.enddate = this.value1[1];
         this.$ajax({
@@ -172,16 +173,16 @@ import vCharts from 'vue-echarts';
           // 路径
           url: this.$apiUrl.picmapinfo,
           // 参数
-          params: this.$params.stringify(this.formInline)
+          params: _this.formInline
         })
           .then(function (response) {
             if (response.data.code === '0'){
-              this.tableData = response.data.data;
+              _this.tableData = response.data.data;
               // 标题数据
-              this.title = response.data.title;
+              _this.title = response.data.title;
             } else {
               // 接口返回code返回不为0时提示信息
-              this.$message.error(response.data.message);
+              _this.$message.error(response.data.message);
             }
 
           })

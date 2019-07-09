@@ -84,17 +84,18 @@
       },
       // 查询图谱接口 map
       getPicMap(){
+        let _this = this;
         this.$ajax({
           method: 'post',
           url: this.$apiUrl.map,
-          params: this.$params.stringify(this.formInline)
+          params: _this.formInline
         })
           .then(function (response) {
             if (response.data.code === '0') {
-              this.formInline = response.data.data;
+              _this.formInline = response.data.data;
             } else {
               // 接口返回code不为0时提示信息
-              this.$message.error(response.data.message)
+              _this.$message.error(response.data.message)
             }
 
           })

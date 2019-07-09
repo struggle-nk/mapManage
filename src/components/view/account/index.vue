@@ -155,16 +155,17 @@
       * 新增台账接口
       * */
       saveAdd: function(){
+        let _this = this;
         this.$ajax({
           method: 'post',
           url: this.$apiUrl.devinfo,
-          data: this.$params.stringify(this.form)
+          data: _this.form
         })
           .then(function (response) {
             if (response.data.code === '0'){
-              this.dialogFormVisible2 = false;
+              _this.dialogFormVisible2 = false;
             } else {
-              this.$message.error(response.data.message);
+              _this.$message.error(response.data.message);
             }
           })
       },
@@ -176,16 +177,18 @@
       * 保存编辑接口
       * */
       saveEdit: function(){
+        let _this = this;
         this.$ajax({
           method: 'put',
           url: this.$apiUrl.devinfo,
-          params: this.$params.stringify(this.editForm)
+          params: _this.editForm
         })
           .then(function (response) {
             if (response.data.code === '0') {
-              this.getAllList();
+              _this.dialogFormVisible = false;
+              _this.getAllList();
             } else {
-              this.$message.error(response.data.message);
+              _this.$message.error(response.data.message);
             }
           })
       },
@@ -203,7 +206,7 @@
           this.$ajax({
             method: 'DELETE',
             url: this.$apiUrl.devinfo,
-            params: this.$params.stringify(data)
+            params: data
           })
             .then(function (response) {
               if (response.data.code === '0') {
