@@ -91,7 +91,7 @@
           params: _this.formInline
         })
           .then(function (response) {
-            if (response.data.code === '0') {
+            if (response.data.code === 0) {
               _this.formInline = response.data.data;
             } else {
               // 接口返回code不为0时提示信息

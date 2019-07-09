@@ -109,43 +109,48 @@ import vCharts from 'vue-echarts';
             { required: true, message: '请输入杆塔号', trigger: 'blur' }
           ]
         },
-        tableData: [{
-          current: '14',
-          temperature: '26',
-          measuredate: '20190610',
-          rtempb: '14',
-          rtempc: '12',
-          rtempa: '43'
-        }, {
-          current: '14',
-          temperature: '26',
-          measuredate: '20190610',
-          rtempb: '14',
-          rtempc: '12',
-          rtempa: '43'
-        },
+        tableData: [
           {
-            current: '14',
-            temperature: '26',
-            measuredate: '20190610',
-            rtempb: '14',
-            rtempc: '12',
-            rtempa: '43'
-          }, {
-          current: '14',
-          temperature: '26',
-          measuredate: '20190610',
-          rtempb: '14',
-          rtempc: '12',
-          rtempa: '43'
-        }, {
-          current: '14',
-          temperature: '26',
-          measuredate: '20190610',
-          rtempb: '14',
-          rtempc: '12',
-          rtempa: '43'
-        }]
+            current: '',
+            temperature: '',
+            measuredate: '',
+            rtempb: '',
+            rtempc: '',
+            rtempa: ''
+          },
+          {
+            current: '',
+            temperature: '',
+            measuredate: '',
+            rtempb: '',
+            rtempc: '',
+            rtempa: ''
+          },
+          {
+            current: '',
+            temperature: '',
+            measuredate: '',
+            rtempb: '',
+            rtempc: '',
+            rtempa: ''
+          },
+          {
+            current: '',
+            temperature: '',
+            measuredate: '',
+            rtempb: '',
+            rtempc: '',
+            rtempa: ''
+          },
+          {
+            current: '',
+            temperature: '',
+            measuredate: '',
+            rtempb: '',
+            rtempc: '',
+            rtempa: ''
+          }
+        ]
       };
     },
     components: {
@@ -176,7 +181,7 @@ import vCharts from 'vue-echarts';
           params: _this.formInline
         })
           .then(function (response) {
-            if (response.data.code === '0'){
+            if (response.data.code === 0){
               _this.tableData = response.data.data;
               // 标题数据
               _this.title = response.data.title;

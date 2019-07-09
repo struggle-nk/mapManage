@@ -75,58 +75,58 @@
           longtitude: ''
         },
         data4: [{
-        "children":[{
-        "children":[{
-        "linename":"\u660e\u6e56\u7ebf",
-        "longtitude":"120.416401",
-        "label":"2#\u5854",
-        "num":1,
-        "kv":"110kV",
-        "latitude":"36.130119",
-        "tower":"2#\u5854",
-        "id":"third4001000"
-        },{
-        "linename":"\u660e\u6e56\u7ebf",
-        "longtitude":"120.4164",
-        "label":"3#\u5854",
-        "num":2,
-        "kv":"110kV",
-        "latitude":"36.130119",
-        "tower":"3#\u5854",
-        "id":"third4001001"
-        },{
-        "linename":"\u660e\u6e56\u7ebf",
-        "longtitude":"120.416404",
-        "label":"4#\u5854",
-        "num":3,
-        "kv":"110kV",
-        "latitude":"36.130121",
-        "tower":"4#\u5854",
-        "id":"third4001002"
-        },{
-        "linename":"\u660e\u6e56\u7ebf",
-        "longtitude":"120.416404",
-        "label":"5#\u5854",
-        "num":4,
-        "kv":"110kV",
-        "latitude":"36.130121",
-        "tower":"5#\u5854",
-        "id":"third4001003"
-        },{
-        "linename":"\u660e\u6e56\u7ebf",
-        "longtitude":"120.4164",
-        "label":"6#\u5854",
-        "num":5,
-        "kv":"110kV",
-        "latitude":"36.130119",
-        "tower":"6#\u5854",
-        "id":"third4001004"
-        }],
-        "id":"sencond2000",
-        "label":"\u660e\u6e56\u7ebf"
-        }],
-        "id":"first1",
-        "label":"110kV"
+          "children":[{
+            "children":[{
+              "linename":"\u660e\u6e56\u7ebf",
+              "longtitude":"120.416401",
+              "label":"2#\u5854",
+              "num":1,
+              "kv":"110kV",
+              "latitude":"36.130119",
+              "tower":"2#\u5854",
+              "id":"third4001000"
+            },{
+              "linename":"\u660e\u6e56\u7ebf",
+              "longtitude":"120.4164",
+              "label":"3#\u5854",
+              "num":2,
+              "kv":"110kV",
+              "latitude":"36.130119",
+              "tower":"3#\u5854",
+              "id":"third4001001"
+            },{
+              "linename":"\u660e\u6e56\u7ebf",
+              "longtitude":"120.416404",
+              "label":"4#\u5854",
+              "num":3,
+              "kv":"110kV",
+              "latitude":"36.130121",
+              "tower":"4#\u5854",
+              "id":"third4001002"
+            },{
+              "linename":"\u660e\u6e56\u7ebf",
+              "longtitude":"120.416404",
+              "label":"5#\u5854",
+              "num":4,
+              "kv":"110kV",
+              "latitude":"36.130121",
+              "tower":"5#\u5854",
+              "id":"third4001003"
+            },{
+              "linename":"\u660e\u6e56\u7ebf",
+              "longtitude":"120.4164",
+              "label":"6#\u5854",
+              "num":5,
+              "kv":"110kV",
+              "latitude":"36.130119",
+              "tower":"6#\u5854",
+              "id":"third4001004"
+            }],
+            "id":"sencond2000",
+            "label":"\u660e\u6e56\u7ebf"
+          }],
+          "id":"first1",
+          "label":"110kV"
         }],
         defaultProps: {
           children: 'children',
@@ -162,11 +162,13 @@
           data: _this.form
         })
           .then(function (response) {
-            if (response.data.code === '0'){
-              _this.dialogFormVisible2 = false;
-            } else {
-              _this.$message.error(response.data.message);
-            }
+            _this.success(response.data.message)
+            _this.getAllList();
+            _this.dialogFormVisible2 = false;
+            // if (response.data.code === '0'){
+            // } else {
+            //   _this.$message.error(response.data.message);
+            // }
           })
       },
       append(data) { //编辑
@@ -184,12 +186,13 @@
           params: _this.editForm
         })
           .then(function (response) {
-            if (response.data.code === '0') {
-              _this.dialogFormVisible = false;
-              _this.getAllList();
-            } else {
-              _this.$message.error(response.data.message);
-            }
+            // if (response.data.code === '0') {
+            _this.success(response.data.message)
+            _this.dialogFormVisible = false;
+            _this.getAllList();
+            // } else {
+            //   _this.$message.error(response.data.message);
+            // }
           })
       },
       /*
@@ -200,7 +203,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-          }).then(() => {
+        }).then(() => {
           // 确认删除后调用删除接口
           let _this = this;
           this.$ajax({
@@ -209,55 +212,58 @@
             params: data
           })
             .then(function (response) {
-              if (response.data.code === '0') {
-                _this.getAllList();
-              } else {
-                _this.$message.error(response.data.message);
-              }
+              // if (response.data.code === '0') {
+              _this.getAllList();
+              _this.success(response.data.message)
+              // } else {
+              //   _this.$message.error(response.data.message);
+              // }
             });
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            });
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            });          
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
           });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
       },
       getAllList: function(){ //获取数据列表
+        let _this = this;
         this.$ajax({
           method: 'get',
           url: this.$apiUrl.devinfo,
         })
           .then(function (response) {
-            if (response.data.code === '0') {
-              this.data4 = response.data.data;
-            } else {
-              this.$message.error(response.data.message);
-            }
+            // if (response.data.code === '0') {
+            _this.success(response.data.message)
+            _this.data4 = response.data.data;
+            // } else {
+            //   this.$message.error(response.data.message);
+            // }
           })
       },
       renderContent(h, { node, data, store }) {  //根据标签名的层层嵌套去隐藏
         if(data.id[0] == 't' ){
-        return (
-          <span style="flex: 1; display: flex; align-items: center; justify-content: space-between; font-size: 14px; padding-right: 8px;">
+          return (
+            <span style="flex: 1; display: flex; align-items: center; justify-content: space-between; font-size: 14px; padding-right: 8px;">
             <span>
-              <span>{node.label}</span>
+            <span>{node.label}</span>
             </span>
             <span>
-              <el-button style="font-size: 12px;" type="text" on-click={ () => this.append(data) }>编辑</el-button>
-              <el-button style="font-size: 12px;" type="text" on-click={ () => this.remove(node, data) }>删除</el-button>
-            </span>
+            <el-button style="font-size: 12px;" type="text" on-click={ () => this.append(data) }>编辑</el-button>
+          <el-button style="font-size: 12px;" type="text" on-click={ () => this.remove(node, data) }>删除</el-button>
+          </span>
           </span>);
         }else{
           return (
-          <span style="flex: 1; display: flex; align-items: center; justify-content: space-between; font-size: 14px; padding-right: 8px;">
+            <span style="flex: 1; display: flex; align-items: center; justify-content: space-between; font-size: 14px; padding-right: 8px;">
             <span>
-              <span>{node.label}</span>
+            <span>{node.label}</span>
             </span>
-          </span>);
+            </span>);
         }
       }
     },

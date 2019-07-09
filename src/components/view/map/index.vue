@@ -111,23 +111,6 @@ import _ from 'lodash'
               current: '',
               status: '',
               picmap: []
-            },
-            {
-              kv: '',
-              linename: '',
-              tower: '',
-              measuredate: '',
-              measuretime: '',
-              staff: '',
-              humidity: '',
-              deviceinfo: '',
-              temperature: '',
-              rtempa: '',
-              rtempb: '',
-              rtempc: '',
-              current: '',
-              status: '',
-              picmap: []
             }
           ]
         },
@@ -164,7 +147,7 @@ import _ from 'lodash'
           params: _this.formInline
         })
           .then(function (response) {
-            if (response.data.code === '0'){
+            if (response.data.code === 0){
               _this.form = response.data.data;
               _this.infoForm.duty = _.cloneDeep(_this.form);
             } else {
@@ -190,10 +173,10 @@ import _ from 'lodash'
         this.$ajax({
           method: 'post',
           url: this.$apiUrl.picmap,
-          params:_this.infoForm.duty
+          data: JSON.stringify(this.infoForm.duty)
         })
           .then(function (response) {
-            if (response.data.code === '0') {
+            if (response.data.code === 0) {
             } else {
               _this.$message.error(response.data.message);
             }
