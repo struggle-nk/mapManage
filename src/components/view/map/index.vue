@@ -34,14 +34,123 @@
           <el-form :model="infoForm">
             <el-row class="duty" v-for="(item, index) in infoForm.duty" :key="index">
               <el-col :span="1">{{ index + 1 }}</el-col>
-              <el-col v-for="(item1, key1, num) in item" :key="key1" :span="thead[num + 1].span">
+
+              <el-col :span="thead[1].span">
                 <div class="grid-content bg-purple-light">
-                <el-form-item v-if="key1 !== 'picmap'">
-                  <el-input v-if="key1==='kv'|| key1==='linename'|| key1==='tower'|| key1==='measuredate'|| key1==='measuretime'|| key1==='staff'" v-model="item[key1]" disabled></el-input>
-                  <el-input v-else v-model="item[key1]" :disabled="bol"></el-input>
+                <el-form-item>
+                  <el-input v-model="item['kv']" disabled></el-input>
                 </el-form-item>
-                  <el-form-item v-if="key1 === 'picmap'">
-                    <a v-for="(index, key) in item[key1]" :key="key"  :href="index" :title="item[key1]" target="_blank">{{ index | strCut }}</a>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[2].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['linename']" disabled></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[3].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['tower']" disabled></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[4].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['measuredate']" disabled></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[5].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['measuretime']" disabled></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[6].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['staff']" disabled></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[7].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['humidity']" disabled></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[8].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['deviceinfo']" :disabled="bol"></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[9].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['temperature']" :disabled="bol"></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[10].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['rtempa']" :disabled="bol"></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[11].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['rtempb']" :disabled="bol"></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[12].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['rtempc']" :disabled="bol"></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[13].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['current']" :disabled="bol"></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[14].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <el-input v-model="item['status']" :disabled="bol"></el-input>
+                  </el-form-item>
+                </div>
+              </el-col>
+
+              <el-col :span="thead[15].span">
+                <div class="grid-content bg-purple-light">
+                  <el-form-item>
+                    <a v-for="(index, key) in item['picmap']" :key="key"  :href="index" :title="index" target="_blank">{{ index | strCut }}</a>
                   </el-form-item>
                 </div>
               </el-col>
@@ -93,24 +202,75 @@ import _ from 'lodash'
           ]
         },
         edit: '编辑',
+        keyWord: [
+          'kv',
+          'linename',
+          'tower',
+          'measuredate',
+          'measuretime',
+          'staff',
+          'humidity',
+          'deviceinfo',
+          'temperature',
+          'rtempa',
+          'rtempb',
+          'rtempc',
+          'current',
+          'status',
+          'picmap'
+        ],
         infoForm:{
           duty: [
             {
-              kv: '',
-              linename: '',
-              tower: '',
-              measuredate: '',
-              measuretime: '',
-              staff: '',
-              humidity: '',
-              deviceinfo: '',
-              temperature: '',
-              rtempa: '',
-              rtempb: '',
-              rtempc: '',
-              current: '',
-              status: '',
-              picmap: []
+              "kv": "110kV",
+              "linename": "\u660e\u6e56\u7ebf",
+              "tower": "3#\u5854",
+              "measuredate": "20180304",
+              "measuretime": "1320",
+              "staff": "\u738b\u4e94",
+              "humidity": "",
+              "deviceinfo": "",
+              "temperature": "",
+              "rtempa": "",
+              "rtempb": "",
+              "rtempc": "",
+              "current": "",
+              "status": "",
+              "picmap": ["E:\\2019GPSINFO\\test2\\110kV\\\u660e\u6e56\u7ebf\\3#\u5854\\201803041320-\u738b\u4e94-110kV_\u660e\u6e56\u7ebf_3#\u5854-01.JPG"],
+            },
+            {
+              "kv": "110kV",
+              "linename": "\u660e\u6e56\u7ebf",
+              "tower": "3#\u5854",
+              "measuredate": "20180304",
+              "measuretime": "1320",
+              "staff": "\u738b\u4e94",
+              "humidity": "",
+              "deviceinfo": "",
+              "temperature": "",
+              "rtempa": "",
+              "rtempb": "",
+              "rtempc": "",
+              "current": "",
+              "status": "",
+              "picmap": ["E:\\2019GPSINFO\\test2\\110kV\\\u660e\u6e56\u7ebf\\3#\u5854\\201803041320-\u738b\u4e94-110kV_\u660e\u6e56\u7ebf_3#\u5854-01.JPG"],
+            },
+            {
+              "kv": "110kV",
+              "linename": "\u660e\u6e56\u7ebf",
+              "tower": "3#\u5854",
+              "measuredate": "20180304",
+              "measuretime": "1320",
+              "staff": "\u738b\u4e94",
+              "humidity": "",
+              "deviceinfo": "",
+              "temperature": "",
+              "rtempa": "",
+              "rtempb": "",
+              "rtempc": "",
+              "current": "",
+              "status": "",
+              "picmap": ["E:\\2019GPSINFO\\test2\\110kV\\\u660e\u6e56\u7ebf\\3#\u5854\\201803041320-\u738b\u4e94-110kV_\u660e\u6e56\u7ebf_3#\u5854-01.JPG"],
             }
           ]
         },
@@ -186,7 +346,7 @@ import _ from 'lodash'
     },
     filters: {
       strCut(str) {
-        return str.substring( str.lastIndexOf('/') + 1).split('.')[0];
+        return str.substring( str.lastIndexOf('\\') + 1).split('.')[0];
       }
     }
   };
