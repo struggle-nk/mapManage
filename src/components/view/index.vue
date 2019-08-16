@@ -3,18 +3,18 @@
     <div class="top">
       <div v-for="(item, index) in menu" :key="index" @click="routeTo(item.name)">{{ item.title }}</div>
     </div>
-    <marquee behavior="alternate" style="font-size:30px;font-weight:600;margin-top:50px;color:black;border:1px solid black;">此为滚动内容</marquee>
-    <div class="bottom">
-      <div>
-        <v-charts :options="first" />
-      </div>
-      <div>
-        <v-charts :options="first" />
-      </div>
-      <div>
-        <v-charts :options="first" />
-      </div>
-    </div>
+    <!--<marquee behavior="alternate" style="font-size:30px;font-weight:600;margin-top:50px;color:black;border:1px solid black;">此为滚动内容</marquee>-->
+    <!--<div class="bottom">-->
+      <!--<div>-->
+        <!--<v-charts :options="first" />-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<v-charts :options="first" />-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<v-charts :options="first" />-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 
 </template>
@@ -74,15 +74,17 @@ export default {
 
 <style lang="scss">
   .home_page{
+    height: 100%;
     .top{
       display: flex;
+      align-items: center;
       justify-content: space-around;
+      height: 100%;
       div{
         width: 25%;
         line-height: 200px;
         text-align: center;
         font-size: 30px;
-        margin-top: 60px;
         border-radius: 10px;
         background: #33475a;
         color: #fff;

@@ -1,6 +1,6 @@
 <template>
   <el-container class="query">
-    <el-aside width="200px">
+    <el-aside width="140px">
       <el-menu
         default-active="map"
         class="el-menu-vertical-demo"
@@ -56,14 +56,17 @@ import queryTem from './queryTem'
 
 <style lang="scss">
   .query{
+    .el-form{
+      border-bottom: 1px solid #e6e6e6;
+    }
+    .el-menu-item{
+      padding: 0!important;
+    }
     .el-menu{
       border: 0;
     }
     .el-aside{
       border-right: solid 1px #e6e6e6;
-    }
-    .el-header{
-      border-bottom: 1px solid #e6e6e6;
     }
     .el-container{
       margin-left: 20px;

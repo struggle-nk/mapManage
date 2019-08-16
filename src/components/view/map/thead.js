@@ -36,7 +36,7 @@ const menu = [
     span: 1
   },
   {
-    name: '温度',
+    name: '湿度',
     span: 1
   },
   {

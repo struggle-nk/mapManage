@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header height="120px">
       <el-form :inline="true" :model="formInline" class="demo-form-inline" ref="formInline" :rules="rules">
         <el-form-item label="电压等级" prop="kv">
           <el-input v-model="formInline.kv" placeholder="请输入电压等级"></el-input>
@@ -58,24 +58,24 @@
               label="A相温度"
               width="80">
             </el-table-column>
-              <el-table-column
-                prop="rtempa"
-                label="B相温度"
-                align="center"
-                width="80">
-              </el-table-column>
-              <el-table-column
-                prop="rtempc"
-                align="center"
-                label="C相温度"
-                width="80">
-              </el-table-column>
-                <el-table-column
-                  prop="current"
-                  align="center"
-                  label="负荷电流"
-                  width="80"
-                >
+            <el-table-column
+              prop="rtempa"
+              label="B相温度"
+              align="center"
+              width="80">
+            </el-table-column>
+            <el-table-column
+              prop="rtempc"
+              align="center"
+              label="C相温度"
+              width="80">
+            </el-table-column>
+            <el-table-column
+              prop="current"
+              align="center"
+              label="负荷电流"
+              width="80"
+            >
             </el-table-column>
           </el-table>
         </div>
@@ -85,7 +85,8 @@
 </template>
 
 <script>
-import vCharts from 'vue-echarts';
+  import vCharts from 'vue-echarts';
+  import _ from 'lodash';
 
   export default {
     name: '',
@@ -96,17 +97,25 @@ import vCharts from 'vue-echarts';
           kv: '',
           linename: '',
           tower: '',
+          startdate: '',
+          enddate: ''
         },
         value1: '',
+        currentArr: [],
+        temperatureArr: [],
+        measuredateArr: [],
+        rtempbArr: [],
+        rtempcArr: [],
+        rtempaArr: [],
         rules: {
           kv: [
-            { required: true, message: '请输入电压等级', trigger: 'blur' },
+            { required: false, message: '请输入电压等级', trigger: 'blur' },
           ],
           linename: [
-            { required: true, message: '请输入线路名称', trigger: 'blur' }
+            { required: false, message: '请输入线路名称', trigger: 'blur' }
           ],
           tower: [
-            { required: true, message: '请输入杆塔号', trigger: 'blur' }
+            { required: false, message: '请输入杆塔号', trigger: 'blur' }
           ]
         },
         tableData: [
@@ -118,38 +127,6 @@ import vCharts from 'vue-echarts';
             rtempc: '',
             rtempa: ''
           },
-          {
-            current: '',
-            temperature: '',
-            measuredate: '',
-            rtempb: '',
-            rtempc: '',
-            rtempa: ''
-          },
-          {
-            current: '',
-            temperature: '',
-            measuredate: '',
-            rtempb: '',
-            rtempc: '',
-            rtempa: ''
-          },
-          {
-            current: '',
-            temperature: '',
-            measuredate: '',
-            rtempb: '',
-            rtempc: '',
-            rtempa: ''
-          },
-          {
-            current: '',
-            temperature: '',
-            measuredate: '',
-            rtempb: '',
-            rtempc: '',
-            rtempa: ''
-          }
         ]
       };
     },
@@ -157,21 +134,62 @@ import vCharts from 'vue-echarts';
       'v-charts': vCharts
     },
     methods: {
+      open() {
+        this.$alert('以上筛选条件请至少填入一个', '友情提示', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
+      },
       submitForm(formName) {
+        this.formInline.startdate = '';
+        this.formInline.enddate = '';
+        let one = false;
+        console.log(this.value1);
         this.$refs[formName].validate((valid) => {
-          if (valid) {
-            // 校验通过后调用温度曲线接口
+          _.forEach(this.formInline, (item)=> {
+            if (item || this.value1) {
+              one = true;
+            }
+          });
+          if (!one) {
+            this.open();
+          }
+          if (valid && one) {
             this.getPicMapInfo();
           } else {
             return false;
           }
         });
       },
+      handleP(){
+        this.rtempbArr = [];
+        this.rtempaArr = [];
+        this.rtempcArr = [];
+        this.temperatureArr = [];
+        this.measuredateArr = [];
+        this.currentArr = [];
+
+        _.forEach(this.tableData,(item)=> {
+          this.rtempbArr.push(item.rtempb);
+          this.rtempaArr.push(item.rtempa);
+          this.rtempcArr.push(item.rtempc);
+          this.temperatureArr.push(item.temperature);
+          this.measuredateArr.push(item.measuredate);
+          this.currentArr.push(item.current);
+        });
+      },
       // 查询温度曲线接口  picmapinfo
       getPicMapInfo(){
-        let _this = this
-        this.formInline.startdate = this.value1[0];
-        this.formInline.enddate = this.value1[1];
+        let _this = this;
+        if (this.value1){
+          this.formInline.startdate = this.value1[0];
+          this.formInline.enddate = this.value1[1];
+        }
         this.$ajax({
           // 方式
           method: 'get',
@@ -182,9 +200,10 @@ import vCharts from 'vue-echarts';
         })
           .then(function (response) {
             if (response.data.code === 0){
-              _this.tableData = response.data.data;
+              _this.tableData = response.data.data.result;
+              _this.handleP();
               // 标题数据
-              _this.title = response.data.title;
+              _this.title = response.data.data.title;
             } else {
               // 接口返回code返回不为0时提示信息
               _this.$message.error(response.data.message);
@@ -210,13 +229,7 @@ import vCharts from 'vue-echarts';
               show:false
             },
             type: 'category',
-            data: [
-              this.tableData[0].measuredate,
-              this.tableData[1].measuredate,
-              this.tableData[2].measuredate,
-              this.tableData[3].measuredate,
-              this.tableData[4].measuredate
-            ]
+            data: this.measuredateArr
           },
           legend: {
             data:['A相温度','B相温度','C相温度','温度','负荷电流']
@@ -246,13 +259,7 @@ import vCharts from 'vue-echarts';
           series: [
             {
               name: 'A相温度',
-              data: [
-                this.tableData[0].rtempa,
-                this.tableData[1].rtempa,
-                this.tableData[2].rtempa,
-                this.tableData[3].rtempa,
-                this.tableData[4].rtempa
-              ],
+              data: this.rtempaArr,
               type: 'line',
               symbolSize: 10,
               symbol: 'circle',
@@ -265,13 +272,7 @@ import vCharts from 'vue-echarts';
               name: 'B相温度',
               symbol: 'circle',
               symbolSize: 12,
-              data: [
-                this.tableData[0].rtempb,
-                this.tableData[1].rtempb,
-                this.tableData[2].rtempb,
-                this.tableData[3].rtempb,
-                this.tableData[4].rtempb
-              ],
+              data: this.rtempbArr,
               type: 'line',
               yAxisIndex: 1,
               lineStyle:{
@@ -283,13 +284,7 @@ import vCharts from 'vue-echarts';
               name: 'C相温度',
               symbol: 'circle',
               symbolSize: 12,
-              data: [
-                this.tableData[0].rtempc,
-                this.tableData[1].rtempc,
-                this.tableData[2].rtempc,
-                this.tableData[3].rtempc,
-                this.tableData[4].rtempc
-              ],
+              data: this.rtempcArr,
               type: 'line',
               yAxisIndex: 1,
               lineStyle:{
@@ -300,13 +295,7 @@ import vCharts from 'vue-echarts';
               name: '温度',
               symbol: 'circle',
               symbolSize: 12,
-              data: [
-                this.tableData[0].temperature,
-                this.tableData[1].temperature,
-                this.tableData[2].temperature,
-                this.tableData[3].temperature,
-                this.tableData[4].temperature
-              ],
+              data: this.temperatureArr,
               type: 'line',
               yAxisIndex: 0,
               lineStyle:{
@@ -317,13 +306,7 @@ import vCharts from 'vue-echarts';
               name: '负荷电流',
               symbol: 'circle',
               symbolSize: 12,
-              data: [
-                this.tableData[0].current,
-                this.tableData[1].current,
-                this.tableData[2].current,
-                this.tableData[3].current,
-                this.tableData[4].current
-              ],
+              data: this.currentArr,
               type: 'line',
               yAxisIndex: 1,
               lineStyle:{
@@ -334,7 +317,7 @@ import vCharts from 'vue-echarts';
           ]
         }
       }
-    }
+    },
   };
 </script>
 <style lang="scss">

@@ -3,28 +3,29 @@
     <h1 class="w-c">图谱录入</h1>
     <div class="content">
       <div class="top">
-      <p>图谱归档</p>
-      <el-form :inline="true" :model="formInline" ref="formInline" :rules="rules" class="demo-form-inline">
-        <el-form-item label="图片目录" prop="dirname">
-          <el-input v-model="formInline.dirname" placeholder="请输入图片目录"></el-input>
-        </el-form-item>
-        <el-form-item label="GPS文件位置" prop="gpsfile" >
-          <el-input v-model="formInline.gpsfile" placeholder="请输入GPS文件位置"></el-input>
-        </el-form-item>
-        <el-form-item label="归档目录" prop="dstdir">
-          <el-input v-model="formInline.dstdir" placeholder="请输入归档目录"></el-input>
-        </el-form-item>
-        <el-form-item label="设备文件" prop="devfile" >
-          <el-input v-model="formInline.devfile" placeholder="请输入设备文件"></el-input>
-        </el-form-item>
-        <el-form-item label="时间误差（秒）" prop="timediff">
-          <el-input v-model="formInline.timediff" placeholder="请输入时间误差"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('formInline')">提交</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
+        <p>图谱归档</p>
+        <el-form :inline="true" :model="formInline" ref="formInline" :rules="rules" class="demo-form-inline">
+          <el-form-item label="图片目录" prop="dirname">
+            <el-input v-model="formInline.dirname" placeholder="请输入图片目录" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="GPS文件位置" prop="gpsfile" >
+            <el-input v-model="formInline.gpsfile" placeholder="请输入GPS文件位置" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="设备文件" prop="devfile" >
+            <el-input v-model="formInline.devfile" placeholder="请输入设备文件" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="位置误差（小数）" prop="posdiff">
+            <el-input v-model="formInline.posdiff" placeholder="请输入时间误差 0.04"></el-input>
+          </el-form-item>
+          <el-form-item label="时间误差（秒）" prop="timediff">
+            <el-input v-model="formInline.timediff" placeholder="请输入时间误差"></el-input>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('formInline')">提交</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
       <div class="bottom">
         <p>数据录入</p>
         <div class="wrap">
@@ -37,9 +38,9 @@
 
               <el-col :span="thead[1].span">
                 <div class="grid-content bg-purple-light">
-                <el-form-item>
-                  <el-input v-model="item['kv']" disabled></el-input>
-                </el-form-item>
+                  <el-form-item>
+                    <el-input v-model="item['kv']" disabled></el-input>
+                  </el-form-item>
                 </div>
               </el-col>
 
@@ -86,7 +87,7 @@
               <el-col :span="thead[7].span">
                 <div class="grid-content bg-purple-light">
                   <el-form-item>
-                    <el-input v-model="item['humidity']" disabled></el-input>
+                    <el-input v-model="item['deviceinfo']" :disabled="bol"></el-input>
                   </el-form-item>
                 </div>
               </el-col>
@@ -94,7 +95,7 @@
               <el-col :span="thead[8].span">
                 <div class="grid-content bg-purple-light">
                   <el-form-item>
-                    <el-input v-model="item['deviceinfo']" :disabled="bol"></el-input>
+                    <el-input v-model="item['temperature']" :disabled="bol"></el-input>
                   </el-form-item>
                 </div>
               </el-col>
@@ -102,7 +103,7 @@
               <el-col :span="thead[9].span">
                 <div class="grid-content bg-purple-light">
                   <el-form-item>
-                    <el-input v-model="item['temperature']" :disabled="bol"></el-input>
+                    <el-input v-model="item['humidity']" :disabled="bol"></el-input>
                   </el-form-item>
                 </div>
               </el-col>
@@ -150,26 +151,26 @@
               <el-col :span="thead[15].span">
                 <div class="grid-content bg-purple-light">
                   <el-form-item>
-                    <a v-for="(index, key) in item['picmap']" :key="key"  :href="index" :title="index" target="_blank">{{ index | strCut }}</a>
+                    <a v-for="(index, key) in item['picmap']" :key="key"  :href="index | imgUrl" :title="index" target="_blank">{{ index | strCut }}</a>
                   </el-form-item>
                 </div>
               </el-col>
             </el-row>
-        </el-form>
-    </div>
+          </el-form>
+        </div>
         <div class="btn">
           <el-button type="primary" @click="editData">{{ edit }}</el-button>
           <el-button type="primary" @click="onSubmitData">归档</el-button>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 
 </template>
 
 <script>
-import thead from './thead'
-import _ from 'lodash'
+  import thead from './thead'
+  import _ from 'lodash'
 
   export default {
     name: 'map',
@@ -178,11 +179,11 @@ import _ from 'lodash'
         thead,
         bol: true,
         formInline: {
-          dirname: '',
-          gpsfile: '',
-          devfile: '',
+          dirname: 'E:\\IR\\Original',
+          gpsfile: 'E:\\IR\\Original\\location.txt',
+          devfile: 'E:\\temp\\dist\\devGPSinfo.xls',
+          posdiff: '',
           timediff: '',
-          dstdir: ''
         },
         rules: {
           dirname: [
@@ -194,6 +195,9 @@ import _ from 'lodash'
           devfile: [
             { required: true, message: '请输入设备文件', trigger: 'blur' }
           ],
+          posdiff: [
+            { required: true, message: '请输入位置误差', trigger: 'blur' }
+          ],
           timediff: [
             { required: true, message: '请输入时间误差', trigger: 'blur' }
           ],
@@ -202,75 +206,24 @@ import _ from 'lodash'
           ]
         },
         edit: '编辑',
-        keyWord: [
-          'kv',
-          'linename',
-          'tower',
-          'measuredate',
-          'measuretime',
-          'staff',
-          'humidity',
-          'deviceinfo',
-          'temperature',
-          'rtempa',
-          'rtempb',
-          'rtempc',
-          'current',
-          'status',
-          'picmap'
-        ],
         infoForm:{
           duty: [
             {
-              "kv": "110kV",
-              "linename": "\u660e\u6e56\u7ebf",
-              "tower": "3#\u5854",
-              "measuredate": "20180304",
-              "measuretime": "1320",
-              "staff": "\u738b\u4e94",
-              "humidity": "",
-              "deviceinfo": "",
-              "temperature": "",
-              "rtempa": "",
-              "rtempb": "",
-              "rtempc": "",
-              "current": "",
-              "status": "",
-              "picmap": ["E:\\2019GPSINFO\\test2\\110kV\\\u660e\u6e56\u7ebf\\3#\u5854\\201803041320-\u738b\u4e94-110kV_\u660e\u6e56\u7ebf_3#\u5854-01.JPG"],
-            },
-            {
-              "kv": "110kV",
-              "linename": "\u660e\u6e56\u7ebf",
-              "tower": "3#\u5854",
-              "measuredate": "20180304",
-              "measuretime": "1320",
-              "staff": "\u738b\u4e94",
-              "humidity": "",
-              "deviceinfo": "",
-              "temperature": "",
-              "rtempa": "",
-              "rtempb": "",
-              "rtempc": "",
-              "current": "",
-              "status": "",
-              "picmap": ["E:\\2019GPSINFO\\test2\\110kV\\\u660e\u6e56\u7ebf\\3#\u5854\\201803041320-\u738b\u4e94-110kV_\u660e\u6e56\u7ebf_3#\u5854-01.JPG"],
-            },
-            {
-              "kv": "110kV",
-              "linename": "\u660e\u6e56\u7ebf",
-              "tower": "3#\u5854",
-              "measuredate": "20180304",
-              "measuretime": "1320",
-              "staff": "\u738b\u4e94",
-              "humidity": "",
-              "deviceinfo": "",
-              "temperature": "",
-              "rtempa": "",
-              "rtempb": "",
-              "rtempc": "",
-              "current": "",
-              "status": "",
-              "picmap": ["E:\\2019GPSINFO\\test2\\110kV\\\u660e\u6e56\u7ebf\\3#\u5854\\201803041320-\u738b\u4e94-110kV_\u660e\u6e56\u7ebf_3#\u5854-01.JPG"],
+              kv: '',
+              linename: '',
+              tower: '',
+              measuredate: '',
+              measuretime: '',
+              staff: '',
+              humidity: '',
+              deviceinfo: '',
+              temperature: '',
+              rtempa: '',
+              rtempb: '',
+              rtempc: '',
+              current: '',
+              status: '',
+              picmap: []
             }
           ]
         },
@@ -306,15 +259,16 @@ import _ from 'lodash'
           url: this.$apiUrl.map,
           params: _this.formInline
         })
-          .then(function (response) {
-            if (response.data.code === 0){
-              _this.form = response.data.data;
-              _this.infoForm.duty = _.cloneDeep(_this.form);
-            } else {
-              _this.$message.error(response.data.message);
-            }
-          })
-        },
+        .then(function (response) {
+          if (response.data.code === 0){
+            _this.form = response.data.data;
+            _this.infoForm.duty = _.cloneDeep(_this.form);
+            console.log(_this.infoForm.duty);
+          } else {
+            _this.$message.error(response.data.message);
+          }
+        })
+      },
       /*
       * 点击归档后执行的函数
       * */
@@ -335,18 +289,21 @@ import _ from 'lodash'
           url: this.$apiUrl.picmap,
           data: JSON.stringify(this.infoForm.duty)
         })
-          .then(function (response) {
-            if (response.data.code === 0) {
-            } else {
-              _this.$message.error(response.data.message);
-            }
+        .then(function (response) {
+          if (response.data.code === 0) {
+          } else {
+            _this.$message.error(response.data.message);
+          }
 
-          })
+        })
       },
     },
     filters: {
       strCut(str) {
-        return str.substring( str.lastIndexOf('\\') + 1).split('.')[0];
+        return str.substring(str.lastIndexOf('\\') + 1).split('.')[0];
+      },
+      imgUrl(url){
+        return 'static'+ url.replace(/\\/g, '/').replace(/#/g, "%23").split('static')[1];
       }
     }
   };
@@ -439,3 +396,4 @@ import _ from 'lodash'
     }
   }
 </style>
+
