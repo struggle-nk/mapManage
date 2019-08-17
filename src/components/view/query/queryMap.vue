@@ -119,6 +119,9 @@
       }
     },
     filters: {
+      strCut(str) {
+        return str.substring(str.lastIndexOf('\\') + 1).split('.')[0];
+      },
       imgUrl(url){
         return 'static'+ url.replace(/\\/g, '/').replace(/#/g, "%23").split('static')[1];
       }
@@ -129,9 +132,23 @@
   .el-carousel__container{
     width: 640px;
     height: 480px;
-    margin: 160px 0 0 160px;
+    margin: 80px 0 0 80px;
+    padding: 30px 0;
+    overflow: hidden;
+    .el-carousel__arrow{
+      top: 40%;
+    }
+    .imgTitle{
+      text-align: center;
+    }
     img{
       width: 640px;
+    }
+    .imgTitle{
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      bottom: 30px;
     }
   }
 </style>

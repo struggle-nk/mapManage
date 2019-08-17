@@ -148,20 +148,22 @@
                 </div>
               </el-col>
 
-              <el-col :span="thead[15].span">
+              <el-col :span="thead[15].span" class="imgShow">
                 <div class="grid-content bg-purple-light">
                   <el-form-item>
-                    <a v-for="(index, key) in item['picmap']" :key="key"  :href="index | imgUrl" :title="index" target="_blank">{{ index | strCut }}</a>
+                    <div class="imgShowC" v-for="(index, key) in item['picmap']" :key="key">
+                      <a :href="index | imgUrl" :title="index" target="_blank">{{ index | strCut }}</a>
+                    </div  >
                   </el-form-item>
                 </div>
               </el-col>
             </el-row>
           </el-form>
         </div>
-        <div class="btn">
-          <el-button type="primary" @click="editData">{{ edit }}</el-button>
-          <el-button type="primary" @click="onSubmitData">归档</el-button>
-        </div>
+      </div>
+      <div class="btn">
+        <el-button type="primary" @click="editData">{{ edit }}</el-button>
+        <el-button type="primary" @click="onSubmitData">归档</el-button>
       </div>
     </div>
   </div>
@@ -311,29 +313,32 @@
 
 <style lang="scss">
   .map{
+    height: 100%;
     $borderColor: #e0e0e0;
     .content{
+      height: calc(100% - 19px);
       padding: 0 2%;
     }
     .top{
-      margin: 80px 0;
       p{
         font-size: 22px;
         padding: 30px 0;
       }
     }
     .bottom{
+      height: calc(100% - 330px);
+      overflow: scroll;
       p{
         font-size: 22px;
         padding: 30px 0;
       }
-      .btn{
-        text-align: right;
-        margin-top: 20px;
-      }
+    }
+    .btn{
+      text-align: right;
+      padding-top: 20px;
     }
     .wrap{
-      width: 100%;
+      width: 1760px;
       border: 1px solid $borderColor;
       .head{
         height: 40px;
@@ -348,18 +353,29 @@
         }
       }
       .duty{
-        height: 50px;
+        height: 70px;
         border-bottom: 1px solid $borderColor;
         text-align: center;
+        .imgShow{
+          line-height: 20px;
+          .imgShowC{
+            font-size: 12px;
+            height: 20px;
+          }
+        }
         .el-col{
+          padding: 5px 0;
           border-right: 1px solid $borderColor;
-          line-height: 50px;
+          line-height: 60px;
+          .el-form-item__content{
+            line-height: 20px;
+          }
           .el-input{
             .el-input__inner{
               text-align: center;
               border: none;
               background: none;
-              height: 50px;
+              height: 60px;
             }
           }
         }
@@ -382,7 +398,6 @@
         border: none;
       }
       a{
-        line-height: 48px;
         color: #5c85cb;
         padding:0 10px;
         border-right: 1px solid #e0e0e0;
