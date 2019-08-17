@@ -182,7 +182,7 @@
         bol: true,
         formInline: {
           dirname: 'E:\\IR\\Original',
-          gpsfile: 'E:\\IR\\Original\\location.txt',
+          gpsfile: 'E:\\IR\\Original\\location\\location.txt',
           devfile: 'E:\\temp\\dist\\devGPSinfo.xls',
           posdiff: '',
           timediff: '',
@@ -327,7 +327,7 @@
     }
     .bottom{
       height: calc(100% - 330px);
-      overflow: scroll;
+      overflow: auto;
       p{
         font-size: 22px;
         padding: 30px 0;
@@ -357,6 +357,9 @@
         border-bottom: 1px solid $borderColor;
         text-align: center;
         .imgShow{
+          overflow:auto;
+          display: flex;
+          height: 70px;
           line-height: 20px;
           .imgShowC{
             font-size: 12px;
