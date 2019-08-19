@@ -53,13 +53,13 @@
             >
             </el-table-column>
             <el-table-column
-              prop="rtempb"
+              prop="rtempa"
               align="center"
               label="A相温度"
               width="80">
             </el-table-column>
             <el-table-column
-              prop="rtempa"
+              prop="rtempb"
               label="B相温度"
               align="center"
               width="80">
@@ -274,7 +274,7 @@
               symbolSize: 12,
               data: this.rtempbArr,
               type: 'line',
-              yAxisIndex: 1,
+              yAxisIndex: 0,
               lineStyle:{
                 width: 2,
                 type:'dotted'
@@ -286,7 +286,7 @@
               symbolSize: 12,
               data: this.rtempcArr,
               type: 'line',
-              yAxisIndex: 1,
+              yAxisIndex: 0,
               lineStyle:{
                 width: 2
               },
